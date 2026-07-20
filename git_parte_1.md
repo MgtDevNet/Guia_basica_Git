@@ -178,16 +178,67 @@ Si se quiere saltar la parte del git add para llevar los archivos al área de pr
 Nota:En caso que no se ponga -m, se abre un editor de texto
 para escribir un mensaje detallado.
 
+#### Otros usos con el git commit
+
+
+🖥️
+```bash  
     git commit  --amend -m "descripcion del commit"
+```
+   
 Permite modificar el ultimo commit, combinando cambios actuales
-con lo que ya estaba en el commit anterior.
+con lo que ya estaba en el commit anterior. Si realizaste un commit pero olvidaste incluir uno o varios archivos, puedes añadirlos al área de preparación con git add y luego ejecutar --amend para fusionarlos en el mismo commit. Admeás, permite editar el texto de la confirmación anterior si contenía errores ortográficos o si deseas cambiar su descripción.
 
+🖥️
+```bash  
     git commit --allow-empty -m "descripcion del commit"
-Crea un commit sin cambios en los archivos, solo con un mensaje
+```
 
-nota: cada que se haga commit, a cada foto se le asigna un codigo unico
-para dar a conocer que no se puede repetir en ningun momento, este codigo
-es un hash.
+Crea un commit sin cambios en los archivos, solo con un mensaje.
+Sirve para crear puntos de referencia. 
+
+Nota: cada que se haga commit, a cada foto se le asigna un codigo único para dar a conocer que no se puede repetir en ningún momento, este codigo es un hash.
+
+### 5. git log
+Es un comando para ver el historial de commits del repositorio; 
+es decir, muestra cada commit que se ha hecho dentro del repositorio mostrando la clave hash, autor, fecha, hora y mensaje. 
+
+🖥️
+```bash  
+    git log
+```
+Otras formas para ver esta información es: 
+
+🖥️
+```bash  
+    git log --oneline # Muestra sencillamente las líneas
+    #del número de commit y en que rama se esta actualmente.
+```
+
+🖥️
+```bash  
+    git log -p # Muestra diferencias de cada commit
+```
+
+🖥️
+```bash  
+    git log -n # se limita a mostrar a los ultimos n commit
+```
+### 6. git chekout
+Es un comando que se usa para cambiar entre ramas o resturar archivos y commits especificos.
+
+🖥️
+```bash  
+    git chekout "nombreRama" 
+```
+Permite moverse entre ramas dentro del repositorio(mas adelante se estudiará esto).
+
+🖥️
+```bash  
+    git chekout  -b "nombreRama" 
+``` 
+Crea una nueva rama con el nombre nombreRama y te cambia a esta automaticamente; es decir, paso de la rama main a la rama con el nombre nombreRama.
+
 
 
 
