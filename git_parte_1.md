@@ -200,8 +200,7 @@ Sirve para crear puntos de referencia.
 Nota: cada que se haga commit, a cada foto se le asigna un codigo único para dar a conocer que no se puede repetir en ningún momento, este codigo es un hash.
 
 ### 5. git log
-Es un comando para ver el historial de commits del repositorio; 
-es decir, muestra cada commit que se ha hecho dentro del repositorio mostrando la clave hash, autor, fecha, hora y mensaje. 
+Es un comando para ver el historial de commits del repositorio; es decir, muestra cada commit que se ha hecho dentro del repositorio mostrando la clave hash, autor, fecha, hora y mensaje. 
 
 🖥️
 ```bash  
@@ -224,6 +223,9 @@ Otras formas para ver esta información es:
 ```bash  
     git log -n # se limita a mostrar a los ultimos n commit
 ```
+
+Nota: El identificador hash es muy importante ya que es el identificador único de los commits y entonces puede servir para movernos en momentos de tiempos diferentes del documento que tenemos. 
+
 ### 6. git chekout
 Es un comando que se usa para cambiar entre ramas o resturar archivos y commits especificos.
 
@@ -238,6 +240,110 @@ Permite moverse entre ramas dentro del repositorio(mas adelante se estudiará es
     git chekout  -b "nombreRama" 
 ``` 
 Crea una nueva rama con el nombre nombreRama y te cambia a esta automaticamente; es decir, paso de la rama main a la rama con el nombre nombreRama.
+
+🖥️
+```bash  
+    git checkout -- <nombreArchivos> 
+``` 
+Sirve para restaurar un archivo a su última versión confirmada de commit. 
+
+🖥️
+```bash  
+    git checkout <hash-del-commit> -- <nombre-del-archivo> 
+``` 
+Sirve para restaurar un archivo a una versión específica de un commit específico identificado con el hash. 
+
+
+### 7. git reset
+Se usa para deshacer cambios en el repositorio. Permite mover el puntero (HEAD) de la rama actual y modificar lo que hay en el área de preparacion(staging area, que es el lugar donde git add manda los archivos) o en el área de trabajo(working directory, es donde trabajamos). 
+    🖥️
+```bash  
+    git reset 
+```
+
+Lo que puede hacer este comando es: 
+
+1) Cambia el puntero HEAD a un commit anterior en la historia
+"olvidando" cualquier commit que haya después de ese punto.
+
+2) Modifica el área de preparación, git reset quíta los archivos que se tengan
+en el área de preparación pero aún no estan en el repositorio, por si lo que se
+tenia se necesita modificar de nuevo antes de montarlo.
+
+3) Modifica el área de trabajo.
+    
+dependiento de las opciones que se usen para git reset, se puede revertir el área de trabajo
+devolviendo TODOS los archivos a su estado en el commit especificado a diferncia de git chekout que que lo hace con un solo archivo.
+
+#### METODOS del git reset
+🖥️
+```bash  
+    git reset --soft HEAD~n 
+```
+a) --soft mueve el puntero (HEAD) sin cambiar el área
+de preparacián ni el área de trabajo. Mueve el puntero HEAD
+a un commit anterior, DESHACIENDO uno o mas commits. 
+    
+Siempre hay que indicar a que commit se quiere llevar, ya sea HEAD~n que mueve
+al n-ésimo commit o al hacer HEAD^ que mueve el inmediatamente anterior o ya 
+con el hash del commit
+
+por ejemplo
+🖥️
+```bash  
+    git reset --soft HEAD~1 
+```
+esto deshace el último commit, pero los cambios que se hicieron seguirán
+en el área de preparación para ser re-commitiados. Es decir, si se hizo 
+un `git add` porque se modificaron o crearon nuevos archivos y luego
+se hizo un `commit` para estos. Pero, supongamos que no se necesitaba
+ese commit pero si se desea mantener los archivos en el área de preparacion
+entonces usamos el `git reset --soft`. 
+
+<span style="color:yellow">**DESHACE COMMITS PERO MANTIENE LOS CAMBIOS DEL ÁREA DE PREPARACIÓN**</span>
+
+🖥️
+```bash  
+    git reset --mixed HEAD~n
+``` 
+b) --mixed mueve el puntero HEAD al commit especificado y <span style="color:red">elimina</span> los archivos del área de preparación, pero mantiene los cambios en el área de trabajo, por eso
+ya dice que el archivo esta modificado o hay uno nuevo pero no está en el area de preparación.
+ 
+por ejemplo
+🖥️
+```bash  
+    git reset --mixed HEAD~1 
+```
+
+ES EL QUE SE USA POR DEFECTO SI SOLO SE PONE `git reset`
+y si no se especifica un commit se va al inmediatamente anterior
+por defecto.
+    
+deshace el ultimo commit y quita esos cambios de área de preparación
+pero los cambios permanecen en el archivo.
+
+<span style="color:yellow">**HACE COMMITS Y MUEVE LOS ARCHIVOS FUERA DEL ÁREA DE PREPARACIÓN
+PERO CONSERVA LOS CAMBIOS EN EL ÁREA  DE TRABAJO**</span>
+    
+🖥️
+```bash  
+    git reset --hard <hash> 
+```
+c) --hard mueve el puntero(HEAD) al commit especificado, elimina el área de
+preparación y el área de trabajo. Ojo, <span style="color:yellow">es irreversible para los cambios locales</span>.
+
+<span style="color:red">DESHACE COMMITS Y ELIMINA CAMBIOS DEL ÁREA DE PREPARACIÓN Y DEL ÁREA
+DE TRABAJO, DEVOLVIENDO EL REPOSITORIO A UN ESTADO ANTERIOR COMPLETAMENTE</span>
+
+NOTA:
+*Una de las formas de movernos de commits con el git reset es cambiando con el puntero
+por defecto, el puntero esta en el último que es el main, ej los commits que tenemos son 
+A--B--C--Main, si hago HEAD~1 se refiere al commit anterior al head, osea, C,
+si hago, HEAD~2 se refiere al commit 2 posiciones atras, osea B y asi.
+*HEAD^ = HEAD~1.
+
+
+    
 
 
 
