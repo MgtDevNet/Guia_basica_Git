@@ -342,27 +342,114 @@ A--B--C--Main, si hago HEAD~1 se refiere al commit anterior al head, osea, C,
 si hago, HEAD~2 se refiere al commit 2 posiciones atras, osea B y asi.
 *HEAD^ = HEAD~1.
 
+### 8. .gitignore
 
-    
+El .gitignore es un simple archivo de texto (llamado literalmente .gitignore) que le dice a Git qué archivos o carpetas debe ignorar por completo.
 
+Sirve para que no subas accidentalmente al repositorio cosas basura o sensibles, como:
 
+* Contraseñas o llaves de API (.env)
 
+* Carpetas de dependencias pesadas (node_modules/, vendor/)
 
+* Archivos generados por el sistema u compilación (.DS_Store, dist/, build/)
 
-
-
-
-
-
-
-
-
-
+Se usa para evitar archivos o directorios que no se quieran tener en el repositorio y simplemente ignorarlos sin tener
+complicaciones. 
 
 
+1. Crear el archivo `.gitignore` en la raíz del proyecto si no se ha creado. 
+🖥️
+```bash  
+    touch .gitignore 
+```
 
 
+2. Ábrelo en cualquier editor de texto como VS code, bloc de notas, vim, etc.
+🖥️
+```bash  
+    code .gitignore 
+```
 
+3. Escribe el nombre de la carpeta con una barra al final
+🖥️
+```  
+    <nombre-archivo>
+```
+
+4. Guardar. 
+
+De esa manera se omitirá esa carpeta y todo lo que tenga adentro. No aparecerá en git status ni de incluirá cuando se haga un git add. 
+
+El archivo se encuentra en la raiz del proyecto; es decir,
+en el mismo directorio donde esta .git, para verlo es con la 
+linea `ls -a` para archivos ocultos.
+
+Nota: 
+* El .gitignore solo funciona para archivos que nunca se han rastreado. Si ya le habías hecho git add y git commit a un archivo antes de agregarlo al .gitignore, Git lo seguirá rastreando.
+
+* Se puede poner no solo un archivo sino una carpeta completa para que ignore la carpeta y todo su contenido. 
+
+Puedes hacer un ejemplo para ver su funcionamiento: 
+
+1. Para crear el archivo .gitignore.
+```bash  
+    touch .gitignore  
+```
+
+2.  Crear el archivo para ignorar.
+```bash  
+    touch archivo_ignorar.txt  
+```
+
+3. Ver que aparece tanto el .gitignore como el archivo_ignorar.txt.
+```bash  
+    git staus  
+```
+
+4. Abrir algún editor de texto.
+```bash  
+    code .gitignore #Abrir en VS code  
+```
+```bash  
+    nano .gitignore #Abrir en el editor de linux
+```
+
+5. Agregar archivo que queremos ignorar y guardar. 
+```  
+    archivo_ignorar.txt  
+```
+
+6. Revisar con git status que ya no aparezca el archivo_ignorar.txt  sino solamente el archivo .gitignore.
+
+#### git rm --cached <archivo>
+Si alguna vez ya habías hecho un git add de ese archivo antes de agregarlo al .gitignore, Git lo seguirá rastreando. Para sacarlo del radar sin borrarlo de tu computadora, ejecuta:
+
+```bash  
+    git rm --cached <archivo>
+```
+
+### 9. git diff:
+Permite ver cambios que se han hecho en ficheros antes de hacer un nuevo commit; es decir, muestra aquellas diferencias y el lugar en que estan. Estas diferencias se pueden ver si y solo si, el archivo editado no se ha montado al área de preparación (lugar que a donde `git add` lleva los archivos), es decir, se mostraran las diferencias entre lo nuevo agregado y lo que tiene guardado el último commit.
+
+muestra las diferencias tal que: 
+
+* + #. comandos añadidos se muestran en <span style="color:green">verde</span> y # es el numero de lineas añadidas, en caso que se hayan añadido
+varias lineas dando en enter nos mostrara todas aquellas lineas que se agregaron despues del último
+guardado.
+
+* -# lineas que se eliminaron se muestran en <span style="color:red">rojo</span>. 
+
+Es muy importanto notar que solo apareceran las líneas luego de haber dado guardar en el área de trabajo pero que aún no esta en el área de preparación. Muestra inmediatamente
+todo aquello que se cambio con rojo como estaba y en verde a como esta ahora. 
+
+### Áreas de git
+* Área de trabajo(working directory): Lugar donde trabajo mis archivos, donde escribo mi codigo y hago todo lo que necesito.
+
+* Área de preparación(Staging area): El +area de preparación es el área donde los archivos editados esperan al siguiente commit; es decir, es el lugar a donde git add manda los 
+archivos.
+
+Repositorio: Lugar donde se guarda la galería de commits.
 
 
 
