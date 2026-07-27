@@ -462,34 +462,82 @@ Hay 2 tipos principales de desplazamientos:
 Recordemos que para cambiar entre ramas existentes:
 🖥️
 ```bash  
-    git chekout
+    git chekout <nombre-rama> #se pone el nombre de la rama a la que nos queremos mover
     #o
-    git switch
+    git switch <nombre-rama>
 ```
 Y para ver las ramas disponibles: 
 
 🖥️
 ```bash  
-    git chekout
-    #o
-    git switch
+    git branch
 ```
- 
 
-viajar
+Es importante tener bien la siguiente idea: Una rama es como un espacio totalmente nuevo, con toda la información hasta el último commit del proyecto, pero hay que entender que todo lo nuevo que se haga en esta rama estará solamente en la rama y no se verá en la rama main a menos que se unan, veamos un ejemplo: 
 
-git chekout rama2 o git switch rama2 es para movernos a la rama2 actualizando el area
-        de trabajo y cambios.
+1. Creamos una rama nueva y nos movemos a ella: 
+🖥️
+```bash  
+    git checkout -b "rama_nueva"
+```
 
-        para crear una rama nueva usamos el comando "git chekout -b nuevarama" o "git switch -c nuevarama"
+2. Revisemos que se creó. 
+🖥️
+```bash  
+    git branch # debería aparecer la rama main y la rama_nueva
+    #además, todos los archivos del último commit. 
+```
 
-        y para devolverse a la rama anterior es con el -, "git chekout -" o "git switch -"
-        y si se quiere devolver directamete al main se puede usar "git checkout main" o pues en si
-        el nombre de la rama principal. 
+3. Creemos un archivo de texto
+🖥️
+```bash  
+   touch archivo_texto.txt 
+```
+y escribir algo en el, por ejemplo: "estoy usando mi nueva rama de git"
 
-    2. Entre commits(viajar en el tiempo del proyecto):
-    es muy similar a moverse entre ramas pero en este caso nos moveremos a un punto especifico 
-    del proyecto a partir de los commits.
+4. guarda y has tu commit. 
+🖥️
+```bash  
+    git add .
+    git commit -m "commit en la rama nueva"
+```
+5. Veamos donde quedó cada rama. 
+🖥️
+```bash  
+    git log --oneline
+```
+Ahora podemos ver que la rama main está en el commit anterior y la rama_nueva esta en commit superior pues tiene cambios que se hicieron después del último commit de la rama main. 
+
+6. Cambiemos de nuevo la rama main.
+🖥️
+```bash  
+    git checkout main
+```
+Ahora revisa en tus arhivos haciendo `ls` y podrás ver que el archivo llamdo `archivo_texto.txt` no existe y es porque no está en esa rama, sino en la nueva. 
+
+**En esencia lo que tienes que entender es que tu rama main es como tu computadora personal y crear una rama es como usar una computadora diferente; la cual, le pasaste todo lo que llevabas en tu computadora personal pero sigues trabajando ahora en esta computadora diferente, de esta manera todo cambio que hagas en esta segunda computadora se quedará allí y no se verá reflejado en tu pc personal, a menos que lo unas.** 
+
+De una manera muy resumida, la forma de combinar "la información de la computadora nueva y llevarla a tu computadora personal y que queden juntas" es directamente unir las ramas y es bastante fácil, simplemnte hay que cambiar a la rama main de nuevo. 
+
+🖥️
+```bash  
+    git checkouit main
+```
+
+y hacer un git merge
+
+🖥️
+```bash  
+    git merge rama_nueva
+```
+
+Eso directamente abre el `nano` que es el editor de texto por defecto de bash para escribir el nombre del commit que se tenía en la rama_nueva pero ahora en la rama main, basta con escribir lo que desees, luego `ctrl + o + enter` y luego `ctrl + x`. Más adelante volveremos con esto. 
+
+
+#### 2. Entre commits(viajar en el tiempo del proyecto):
+Es muy similar a moverse entre ramas pero en este caso nos moveremos a un punto especifico 
+del proyecto a partir de los commits.
+
         a) con git log veremos el historial de commits para ver a donde queremos movernos
         b) debemos seleccionar la clave hash del commit al que queremos llegar y la forma de
         movernos sera con el "git chekout <hashcommit>"
