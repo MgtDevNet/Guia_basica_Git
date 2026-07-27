@@ -251,7 +251,7 @@ Sirve para restaurar un archivo a su última versión confirmada de commit.
 ```bash  
     git checkout <hash-del-commit> -- <nombre-del-archivo> 
 ``` 
-Sirve para restaurar un archivo a una versión específica de un commit específico identificado con el hash. 
+Sirve para restaurar un archivo a una versión específica de un commit específico identificado con el hash. Más adelante volveremos con el uso de las ramas. 
 
 
 ### 7. git reset
