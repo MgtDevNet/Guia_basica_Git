@@ -556,6 +556,80 @@ seleccionado a partir de su hash. Esto permite ver otros estados del proyecto si
 <span style="color: red;">Nota importante</span>: Si en el estado de **deteached HEAD** se hace un commit, como estos no estan asociados a ninguna rama entonces pueden perderse y se debe crear una rama nueva para eso.
 **Si antes de moverme de commit hay cosas que que no se han guardado con un commit, pueden perderse**. 
 
+Es visible que al cambiar de rama, cambia el nombre de la rama en el bash. Pasa lo mismo con el commit, al movernos entre commits ya no aparecerá que estamos en la rama main sino por ejemplo en (HEAD detached at 2806df5) si se cambia al commit con hash 2806df5. 
+
+### 10. git tag
+Se utiliza para marcar puntos especificos en el historial de un repositorio con etiquetas.
+
+Son útiles para marcar versiones importantes de los proyectos; para tomar una referencia de un punto importante con un nombre.
+
+Son las "versiones" de una aplicación.
+
+POR BUENAS PRACTICAS EN MINÚSCULA, GUIONES BAJOS(NO ESPACIOS) o también es recomendable SINO SNAKECASE.
+
+Hay 2 tipos de etiquetas en git, 
+
+1.**Etiquetas ligeras(lightweight tags)**: Que son como marcadores en un commit. No tienen información adicional como mensajes o metadatos; funcionan simplemente como un puntero al commit que se esta etiquetando.
+
+    🖥️
+```bash  
+    git tag <nombre-etiquieta>
+```
+Eso crea una etiquéta en el commit actual (HEAD)
+
+2. **Etiquetas anotadas(annotated tags):** Son etiquétas más completas que continen un mensaje, fecha, autor y otros metadatos, se usan normalmente para lanzamientos formales de software porque almacenan información:
+
+    🖥️
+```bash  
+    git tag -a <nombre-etiqueta> -m "mensaje"
+```
+Ejemplo
+    🖥️
+```bash  
+    git tag -a v1.0.0 -m "Version 1.0.0: primero lanzamiento oficial"
+```
+Esto creará una etiquéta llamada v1.0.0 en el commit actual, junto con el mensaje descrito.
+
+Para ver las etiquétas en orden alfabético:
+
+🖥️
+```bash  
+    git tag 
+```
+
+En caso de necesitar informacion mas detallada de 
+una etiquéta especifica podemos usar:
+
+🖥️
+```bash  
+    git show nombre-etiqueta
+```
+Esto mostrará el commit etiquetado, el mensaje de la etiquéta, el autor y la fecha.
+
+Para etiquetar un commit específico que no sea el mas reciente podemos hacerlo usando el hash del commit: 
+
+🖥️
+```bash  
+    git tag <nombre-etiqueta> <commit-hash> #o pues con el HEAD~N
+```   
+
+y finalmente para eliminar una etiquéta:
+🖥️
+```bash  
+    git tag -d <nombre-eqitqueta>
+```
+ 
+NOTA: 
+* -a: Se usa para crear una etiquéta anotada en git; osea, se esta creando una etiquéta que no solo apunta a un commit sino que tambien contiene metadatos adicionales.
+
+* -d: Se usa para eliminar una etiquéta en tu repositorio local, es útil si se comete un error  al crear una etiquéta o ya no necesita.
+
+Luego, como tenemos commits etiquetados para movernos entre ellos (el HEAD) entonces ahora podemos usar el nombre de el tag escpecífico para ir a un commit para no tener que usar el hash:
+
+🖥️
+```bash  
+    git checkout tags/<nombre-tag>
+```
 
 
 
@@ -608,3 +682,4 @@ seleccionado a partir de su hash. Esto permite ver otros estados del proyecto si
 **Commit**: es una "fotografía" o punto de control que guarda de forma permanente el estado de tus archivos y el código en un momento específico. Actúa como un guardado en el historial de tu proyecto, permitiéndote regresar a ese punto exacto si algo sale mal.[referencia](https://youtu.be/j9zAL52wuLg?si=xbT9Rkox1mZzytGw)
 
 **Área de preparación**:El área de preparación (o staging area / índice) en Git es un espacio intermedio donde se agrupan los cambios antes de guardarlos definitivamente en el historial. Funciona como un borrador que te permite decidir exactamente qué modificaciones incluir en tu próxima confirmación (commit).
+
