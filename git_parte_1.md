@@ -533,40 +533,31 @@ y hacer un git merge
 
 Eso directamente abre el `nano` que es el editor de texto por defecto de bash para escribir el nombre del commit que se tenía en la rama_nueva pero ahora en la rama main, basta con escribir lo que desees, luego `ctrl + o + enter` y luego `ctrl + x`. Más adelante volveremos con esto. 
 
+El área de preparación es una sola rama general; es decir, si se hizo un cambio a un archivo o se creo uno nuevo y se puso en el área de preparación, luego se hizo commit en algúna rama, pero luego se decide que esos cambios deben estar en otra rama, lo que se puede hacer es devolverse entre commits con `git reset --soft` para que ya no se tengan esos commits, pero se mantengan esas ediciones en el área de preparación; luego al cambiar de rama se vuelve a hacer el commit con los archivos.
+
 
 #### 2. Entre commits(viajar en el tiempo del proyecto):
 Es muy similar a moverse entre ramas pero en este caso nos moveremos a un punto especifico 
 del proyecto a partir de los commits.
 
-        a) con git log veremos el historial de commits para ver a donde queremos movernos
-        b) debemos seleccionar la clave hash del commit al que queremos llegar y la forma de
-        movernos sera con el "git chekout <hashcommit>"
+1) Con `git log` veremos el historial de commits para ver a donde queremos movernos.
+2) Debemos seleccionar la clave hash del commit al que queremos llegar y la forma de
+    movernos será:
+    
+    🖥️
+```bash  
+    git chekout <hash-commit>
+```
 
-    Al hacer esto entonces entramos en un estado llamado "detached HEAD" que indica que el HEAD
-    que es el puntero que señala en que rama o commit estamos ahora se movera al commit
-    al que he seleccionado a partir de su hash. Esto permite ver otros estados del proyecto
-    sin afectar la parte principal. 
+Al hacer esto entramos en un estado llamado **detached HEAD** que indica que el HEAD
+que es el puntero que señala en que rama o commit estamos ahora se movera al commit
+seleccionado a partir de su hash. Esto permite ver otros estados del proyecto sin afectar la parte principal. 
 
-    Ojo: Si en el estado de "deteached HEAD" se hace un commit como estos no estan asociados
-    a ninguna rama entonces pueden perderse y entonces debo crear una rama nueva para eso.
-    si antes de moverme de commit hay cosas que he hecho commit, es decir, que no he guardado
-    pueden perderse 
+<span style="color: red;">Nota importante</span>: Si en el estado de **deteached HEAD** se hace un commit, como estos no estan asociados a ninguna rama entonces pueden perderse y se debe crear una rama nueva para eso.
+**Si antes de moverme de commit hay cosas que que no se han guardado con un commit, pueden perderse**. 
 
-    IMPORTANTE: Es muy importante tener en cuenta que los commits que se hacen en una rama diferente
-    de la MAIN no apareceran ahi a menos que se fusionen, es decir, los commits o las fotos perteneceran
-    a esa rama en especifico(las fotos pertenecen a otra subcarpeta) a menos que se fusionenen con el merge.
-    De esta manera se muestra el como funcionan las ramas, pues pude hacer muchas ediciones del mismo archivo
-    pero en el archivo de la rama MAIN es que como si no hubiera pasado nada.
-    Otra situacion a tener en cuenta es que el area de preparacion es una sola rama general, es decir, si se hizo
-    un cambio a un archivo o se creo uno nuevo y se puso en el área de preparación y se hizo un commit en algúna rama
-    pero luego quiero que este en otra rama, lo que puedo hacer es devolverme entre commits con git reset --soft para que 
-    ya no se tengan esos commits pero se mantengan esas ediciones y luego al cambiar de rama puedo volver a hacer el commit
-    con los archivos que se mantiene en el area de preparacion
 
-    git reset --soft HEAD~3 (me devuelvo al 3er commit anterior pero los archivos se mantienen en el área de preparación)
-    git switch main
-    git add .
-    git commit -m"commit organizado "
+
 
 
 
