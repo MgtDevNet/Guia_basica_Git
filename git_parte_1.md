@@ -631,6 +631,82 @@ Luego, como tenemos commits etiquetados para movernos entre ellos (el HEAD) ento
     git checkout tags/<nombre-tag>
 ```
 
+### 11. git reflog
+Es una herramienta útil que registra todos los movimientos que ha hecho el puntero HEAD en el repositorio. A diferencia de `git log`, que solo muestra el historial de commits, `git reflog` permite ver todas las acciones importantes que se han hecho como: cambios de ramas, resets, commits y merges.
+
+ESPECIALMENTE ÚTIL CUANDO SE NECESITAN RECUPERAR CAMBIOS O COMMITS QUE PARECEN PERDIDOS O DESHACER ACCIONES COMO UN
+
+`git reset --hard`
+
+Se guarda un registro de todas las veces que el puntero se mueve en el repositorio, permite ver el historial de acciones que afectan el puntero HEAD, incluso aquellas que no aparecen en 
+git log.
+
+🖥️
+```bash  
+    git reflog
+```
+Lo que retorna es una lista de la siguiente manera: 
+**<hash> HEAD@{n} <descripcion>**: Donde $n$- representa el número de eventos en el historial de HEAD, donde HEAD{0} es el estado actual del puntero y luego muestra una descripción.
+
+Por ejemplo, si se cometió algún error y se quiere volver a un estado anterior, se puede usar `git reflog` para que se muestre la lista. Identifico el commit que deseo recuperar con el HASH o HEAD@{n} y entonces para recuperar ese estado del proyecto solo ejectuco `git reset --hard`
+
+🖥️
+```bash  
+    git reset --hard HEAD@{n} # y asi recupero el estado del proyecto hasta ese momento, sin importart que ya lo hubiese elminado, es la forma de recuperar todo si en algún momento hay arrepentimiento por eliminar algo. 
+```
+### 12. git branch (volvamos al concepto de las ramas)
+Es uno de los comandos mas importantes en git y se usa para trabajar con ramas, permitiendo desarrollar características, corregir errores o experimentar con nuevas ideas sin afectar la rama principal(se pueden crear tantas como quiera entonces se puede experimentar como se desee sin afectar el tronco del arbol del trabajo, y en caso que se quiera se puede agregar).
+
+Hay varias funciones para este comando: 
+
+🖥️
+```bash  
+    git branch 
+```
+Muestra todas las ramas disponibles ya creadas en el repositorio y marca con un * en la que se esta trabajando actualmente.
+
+🖥️
+```bash  
+    git branch <nombre-rama> 
+```
+Crea una nueva rama nombre el nombre "nombre-rama". Cuidado, la nueva rama se crea a partir del ultimo commit, y se hace algún commit en esta nueva rama, no se guardará en la rama principal. Por tanto si se devuelve a la rama main, no apareceran estos commits a menos de que se fusionen, por eso es posible sin dañar la parte principal que ya funciona.
+
+🖥️
+```bash  
+    git checkout <nombre-rama> 
+    git switch <nombre-rama>
+``` 
+Para cambiar a la rama con el nombre específicado.
+
+🖥️
+```bash  
+    git checkout -b <nombre-rama> 
+    git switch -c <nombre-rama>
+```
+Crea una nueva rama con el nombre "nombre-rama" y directamente me mueve a ella.
+
+🖥️
+```bash  
+   git branch -d <nombre-rama>
+```
+Se usa para eliminar una rama con el nombre "nombre-rama" esto siempre y cuando los cambios de esa nueva rama ya hayan sido fusionados con la rama principal; en caso que no desee fusionar esos cambios por alguna razón, se usa una $-D$ en lugar de $-d$.
+
+Pero cuidado pues aunque se supone que se elimino la rama, se puede tener una referencia de los commits que se tuvieron y se puede viajar a ellos, pero la rama en la que estaban ya no esta, todo esto suponiendo que ya se hizo una fusión con otra rama.
+
+🖥️
+```bash  
+   git branch -r
+```
+Muestra una lista de las ramas remotas junto del nombre de origen. 
+
+🖥️
+```bash  
+   git branch -m <nombreviejo> <nombrenuevo>,
+```
+Renombra una rama.
+
+
+
 
 
 
