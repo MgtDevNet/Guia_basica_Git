@@ -652,7 +652,7 @@ Por ejemplo, si se cometió algún error y se quiere volver a un estado anterior
 
 🖥️
 ```bash  
-    git reset --hard HEAD@{n} # y asi recupero el estado del proyecto hasta ese momento, sin importart que ya lo hubiese elminado, es la forma de recuperar todo si en algún momento hay arrepentimiento por eliminar algo. 
+    git reset --hard HEAD@{n} # y asi recupero el estado del proyecto hasta ese momento, sin importart que ya lo hubiese elminado, es la forma de recuperar todo si en algún momento hay arrepentimiento por eliminar algo. En lugar del n también se puede poner el hash del commit y listo. O simplemente poner el hash. 
 ```
 ### 12. git branch (volvamos al concepto de las ramas)
 Es uno de los comandos mas importantes en git y se usa para trabajar con ramas, permitiendo desarrollar características, corregir errores o experimentar con nuevas ideas sin afectar la rama principal(se pueden crear tantas como quiera entonces se puede experimentar como se desee sin afectar el tronco del arbol del trabajo, y en caso que se quiera se puede agregar).
@@ -753,20 +753,68 @@ Sucede cuando se han hecho cambios en ambas ramas. En este caso, Git crea un com
 M es el commit de merge, que combina los cambios de las ramas, pero notese que hay cambios de algo en general no en las mismas lineas de codigo; es decir, se agregaron funcionalidades y lineas de código al proyecto. No se editaron las que ya habían. 
 
 #### 3. Merge con conflicto
-Ocurre cuando Git no puede decidir automaticamente como combinar los cambios. Esto pasa si ambas ramas se modificaran las mismas líneas en los mismos archivos, un ejemplo: desde la rama main se hizo un cambio en la linea 10 de un archivo y en la otra 
-rama tambien se hizo un cambio en la linea 10 del mismo archivo, entonces hay que resolver el conflicto de manera manual y git mostrará donde estaran estos conflictos. Se dice que hay que forzar el conflicto para poder arreglarlo.
+Ocurre cuando Git no puede decidir automaticamente como combinar los cambios. Esto pasa si ambas ramas se modificaran las mismas líneas en los mismos archivos, un ejemplo: desde la rama main se hizo un cambio en la linea 10 de un archivo y en la otra  rama tambien se hizo un cambio en la linea 10 del mismo archivo, entonces hay que resolver el conflicto de manera manual y git mostrará donde estaran estos conflictos. Se dice que hay que forzar el conflicto para poder arreglarlo.
 
-ejemplo: 
-primero que nada, hacer commit a todo lo que se lleva hasta el momento `git add .` y `git commit -m "nombre-commit" `
+Imagínate que tú y un compañero están escribiendo juntos un libro. Los dos toman una copia del Capítulo 3 el lunes.
 
+Tú editas el párrafo 2 para decir que el personaje vestía una chaqueta negra.
 
+Tu compañero edita el mismo párrafo 2 para decir que el personaje vestía un suéter rojo.
 
+El viernes se juntan para consolidar el libro. ¿Qué debe decir el párrafo 2? ¿Chaqueta o suéter? Eso es un conflicto de Git.
 
-    NOTA: Luego de fusionar las ramas, la rama secundaria no se eliminar ni desaparece, seguira existiendo
-    y trabajando en ella y se desea, no se borra ni se modifica por el merge pero pues en caso
-    que ya no se necesite se puede eliminar
+Cuando ocurre un conflicto durante un git merge, Git no borra nada ni rompe tu proyecto. En su lugar, modifica el archivo afectado insertando unas marcas muy características para señalar exactamente dónde está la disputa:
 
-    4. El squash merge en git es una forma de fusionar ramas que combina todos los commits de una rama en un solo 
+<<<<<<< HEAD
+El personaje vestía una chaqueta negra.
+=======
+El personaje vestía un suéter rojo.
+>>>>>>> rama-de-mi-compañero
+
+Resolver un conflicto es simplemente tomar una decisión editorial. Tienes cuatro opciones principales:
+
+1. Quedarte con tu cambio (borrar la versión entrante y las marcas).
+
+2.Quedarte con el cambio de la otra rama (borrar tu versión y las marcas).
+
+3. Combinar ambos cambios (por ejemplo: "El personaje vestía una chaqueta negra sobre un suéter rojo" y borrar las marcas).
+
+Escribir algo completamente nuevo.
+
+Identifica los archivos en conflicto:
+Corre `git status`. Verás los archivos con conflicto resaltados bajo la categoría `Unmerged paths`.
+
+Abre y edita el archivo:
+Puedes usar tu editor preferido (como VS Code, que tiene botones dedicados para "Accept Current Change" o "Accept Incoming Change"). Asegúrate de eliminar por completo las marcas <<<<<<<, ======= y >>>>>>>.
+
+Marca el conflicto como resuelto:
+Añade el archivo al área de preparación (staging):
+
+🖥️
+```bash  
+   git add archivo_resuelto.txt
+```
+
+Completa la fusión:
+Crea el commit de merge para finalizar:
+
+🖥️
+```bash  
+   git commit
+```
+(Git generará automáticamente un mensaje predeterminado indicando que se resolvió un merge).
+
+Notas: 
+* Si te entras en pánico: Puedes cancelar el proceso de fusión en cualquier momento y volver exactamente a como estabas antes de intentar el merge usando:
+
+🖥️
+```bash  
+   git merge --abort
+```
+* Luego de fusionar las ramas, la rama secundaria no se eliminan ni desaparecen, seguira existiendo y trabajando en ella si se desea. No se borra ni se modifica por el merge pero pues en caso que ya no se necesite se puede eliminar
+
+#### 4. El squash merge
+ en git es una forma de fusionar ramas que combina todos los commits de una rama en un solo 
     commit antes de hacre la fusión con la rama principal. Útil para mantenre un historial limpio, eliminando
     la acumulación de mútilples commits pequeños o intermedios y presentando los cambios en un único commit significativo.
     Supongamos que se esta trabajando en una rama con nombre feature y se hacen varios commits en esta A - B - C, 
