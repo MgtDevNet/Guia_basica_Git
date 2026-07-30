@@ -701,9 +701,86 @@ Muestra una lista de las ramas remotas junto del nombre de origen.
 
 🖥️
 ```bash  
-   git branch -m <nombreviejo> <nombrenuevo>,
+   git branch -m <nombreviejo> <nombrenuevo>
 ```
 Renombra una rama.
+
+### 13. git merge
+Es el comando para combinar dos ramas en una. Cuando se trabaja en diferentes ramas y se quieren unir cambios se aplica este comenado. 
+Al aplicar esta linea Git intenta unir el historial de dos ramas, creando un nuevo commit que refleja la combinacion de los cambios realizados en ambas ramas.
+
+Primero que nada hay que cambiarse a la rama a la que se le 
+aplicaran los cambios. Por ejemplo, si hice cambios en una rama y quiero pasarlo a la rama main entonces primero hay que cambiar a esta, luego de estar en la rama main aplciamos el comando:
+
+🖥️
+```bash  
+   git merge <nombre-rama>
+```
+Y ya con esto tendré mis ramas fucionadas. 
+
+Hay diferentes tipos de merge con respecto a los commits que hayan: 
+
+#### fast-forward merge
+Si no hay commits adicionales en la rama main (o a la que se le fusionara otra rama) desde que se creo la rama secundaria; es decir, cuando no se hizo ningún otro cambio en la rama principal desde que se creo la otra rama. Entonces, git mueve el puntero de main hacia adelante, porque no hay ningún cambio en el main que deba combinarse, simplemente se mueve al ultimo commit de la rama secundaria, pues como se supone que no se hizo nada en el main es como si se hubiera seguido con el mismo trabajo.
+    
+* Antes del merge:
+
+    A---B---C  (main)
+            \
+            D---E  (feature-branch)
+
+* Después del merge (fast-forward):
+
+    A---B---C---D---E  (main, feature-branch)
+
+    y no hay ningun commit extra de fusión.
+
+#### 2. Merge con commit de fusión
+Sucede cuando se han hecho cambios en ambas ramas. En este caso, Git crea un commit extra llamado commit de merge, que une los cambios de ambas ramas: 
+
+* Antes del merge:
+
+    A---B---C  (main)
+         \
+          D---E  (feature-branch)
+
+* Después del merge:
+
+    A---B---C---M  (main)
+          \    /
+           D---E  (feature-branch)
+
+M es el commit de merge, que combina los cambios de las ramas, pero notese que hay cambios de algo en general no en las mismas lineas de codigo; es decir, se agregaron funcionalidades y lineas de código al proyecto. No se editaron las que ya habían. 
+
+#### 3. Merge con conflicto
+Ocurre cuando Git no puede decidir automaticamente como combinar los cambios. Esto pasa si ambas ramas se modificaran las mismas líneas en los mismos archivos, un ejemplo: desde la rama main se hizo un cambio en la linea 10 de un archivo y en la otra 
+rama tambien se hizo un cambio en la linea 10 del mismo archivo, entonces hay que resolver el conflicto de manera manual y git mostrará donde estaran estos conflictos. Se dice que hay que forzar el conflicto para poder arreglarlo.
+
+ejemplo: 
+primero que nada, hacer commit a todo lo que se lleva hasta el momento `git add .` y `git commit -m "nombre-commit" `
+
+
+
+
+    NOTA: Luego de fusionar las ramas, la rama secundaria no se eliminar ni desaparece, seguira existiendo
+    y trabajando en ella y se desea, no se borra ni se modifica por el merge pero pues en caso
+    que ya no se necesite se puede eliminar
+
+    4. El squash merge en git es una forma de fusionar ramas que combina todos los commits de una rama en un solo 
+    commit antes de hacre la fusión con la rama principal. Útil para mantenre un historial limpio, eliminando
+    la acumulación de mútilples commits pequeños o intermedios y presentando los cambios en un único commit significativo.
+    Supongamos que se esta trabajando en una rama con nombre feature y se hacen varios commits en esta A - B - C, 
+    al realizar una fusion con squash git combinara esos tres commit en uno solo, 
+    antes de fusionar los cambios a la rama base y el commit resultante puede tener un mensaje descriptivo que resuma
+    los cambios. y se hace tal que
+
+        git merge --squash feature 
+
+    y git pedira crear un nuevo commit para la fusión. finalmente, esto se usa para mantener un historial mas limpio
+    y es util cuando hay muchos commits pequeños que no son significativos individualmente
+
+
+
 
 
 
