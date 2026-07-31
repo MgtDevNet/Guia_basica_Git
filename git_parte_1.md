@@ -814,18 +814,120 @@ Notas:
 * Luego de fusionar las ramas, la rama secundaria no se eliminan ni desaparecen, seguira existiendo y trabajando en ella si se desea. No se borra ni se modifica por el merge pero pues en caso que ya no se necesite se puede eliminar
 
 #### 4. El squash merge
- en git es una forma de fusionar ramas que combina todos los commits de una rama en un solo 
-    commit antes de hacre la fusión con la rama principal. Útil para mantenre un historial limpio, eliminando
-    la acumulación de mútilples commits pequeños o intermedios y presentando los cambios en un único commit significativo.
-    Supongamos que se esta trabajando en una rama con nombre feature y se hacen varios commits en esta A - B - C, 
-    al realizar una fusion con squash git combinara esos tres commit en uno solo, 
-    antes de fusionar los cambios a la rama base y el commit resultante puede tener un mensaje descriptivo que resuma
-    los cambios. y se hace tal que
+Es una forma de fusionar ramas. Combina todos los commits de una rama en un solo commit antes de hacer la fusión con la rama principal. 
 
-        git merge --squash feature 
+Útil para mantenre un historial limpio, eliminando
+la acumulación de mútilples commits pequeños o intermedios y presentando los cambios en un único commit significativo.
 
-    y git pedira crear un nuevo commit para la fusión. finalmente, esto se usa para mantener un historial mas limpio
-    y es util cuando hay muchos commits pequeños que no son significativos individualmente
+Supongamos que se esta trabajando en una rama con nombre `feature` y se hacen varios commits en esta `A - B - C`, 
+al realizar una fusion con squash, git combinara esos tres commit en uno solo; antes de fusionar los cambios a la rama base y el commit resultante puede tener un mensaje descriptivo que resuma los cambios. El comando es: 
+
+🖥️
+```bash  
+   git merge --squash <nombre-rama> 
+```
+Se pedirá crear un nuevo commit para la fusión. Finalmente, esto se usa para mantener un historial mas limpio y es util cuando hay muchos commits pequeños que no son significativos individualmente.
+
+### 14. Git stash 
+Sirve para guardar temporalmente los cambios no confirmados;es decir, que no han sido commiteados si no que se 
+van a una área llamada stash. Útil cuando se esta trabajando en algo, pero se necesita cambiar de rama o hacer algo
+diferente sin perder los cambios actuales; lo que se ha hecho en esa rama. Guarda los archivos modificados de manera temporal y te deja con un área de trabajo limpia permitiéndote volver a los cambios más tarde cuando lo necesites.
+
+Supongamos que se esta trabajando con una rama y se tiene algunos cambios pero no se quiere hacer commit y se necesita cambiar a la rama main para revisar algo, pero no se quiere perder el trabajo que ya se tiene en esa rama.
+
+🖥️
+```bash  
+   git stash
+```   
+Este comando movera los cambios a una área temporal de almacenamiento llamada stash y el área de trabajo quedará limpia como si no se hubiera hecho nada.
+
+🖥️
+```bash  
+   git stash list
+```
+Sirve para ver los stashers que se tienen guardados pues se pueden tener varios, y esto 
+retornara una lista indice stash@{n}, donde n es el n-ésimo stash.  
+
+🖥️
+```bash  
+   git stash apply
+```   
+Cuando se quieren recuperar los cambios guardados, se pueden aplicar el stash mas reciente,
+el comando anterior restaura los cambios sin eliminarlo de la lista. Si se quiere eliminar
+después de aplicar, se usa el comando: 
+
+🖥️
+```bash  
+   git stash drop 
+```
+ 
+Para aplicar y eliminar al mismo tiempo; es decir, restaura los cambios y eliminar el stash de la lista se usa el comando: 
+
+🖥️
+```bash  
+   git stash pop 
+```
+Para guardar un mensaje descriptivo al stash para recordar lo que se guardo:
+🖥️
+```bash  
+   git stash save "mensaje"  
+```
+Luego, la forma de aplicar un stash especifico
+🖥️
+```bash  
+   git stash apply stash@{n}  
+```    
+Finalmente, la forma de eliminar todos los stashes guardados.
+
+🖥️
+```bash  
+   git stash clear  
+```    
+    
+    
+
+### 15. git rebase -i
+Es una forma de ordenar y reducir commit innecesarios en una rama especifica. Permite modificar el historial
+de commits de una rama de forma interactiva.
+
+1. nos vamos a la rama que se ordenará
+    
+2. iniciamos el rebase interactivo: 
+🖥️
+```bash  
+   git rebase -i HEAD~n  
+``` 
+Esto abre una lista con los ultimos n-commits y en un editor de texto modificable:
+
+    pick a1b2c3d Commit A
+    pick e4f5g6h Commit B
+    pick i7j8k9l Commit C
+    pick m1n2o3p Commit D
+    pick q4r5s6t Commit E 
+        
+`pick` es al accion predeterminada que para que el commit se mantenga tal cual, pero lo podemos cambiar por otras acciones:
+        
+* squash : Combina el commit con el anterior lo que resulta en uno solo que fusiona ambos.
+* reword: cambia el mensaje del commit
+* drop: elimina el commit por completo
+
+    pick a1b2c3d Commit A
+    squash e4f5g6h Commit B
+    squash i7j8k9l Commit C
+    squash m1n2o3p Commit D
+    pick q4r5s6t Commit E
+
+se combinaron B,C y D en el commit A pero mantendrá E igual. Si  hizo un squash ha que editar el mensaje del commit resultante.
+
+IMPORTANTE:ESTE COMANDO ES MUY PELIGROSO, PERO UNA FORMA DE SALVARSE SIN QUE SE PIERDA NADA
+ES CON EL COMANDO:
+🖥️
+```bash  
+   git rebase --abort  
+```
+Aborta todo lo que se estaba haciendo y vuelve todo a la normalidad.
+
+
 
 
 
