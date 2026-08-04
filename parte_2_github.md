@@ -2,9 +2,9 @@
 Es una plataforma de control de versiones a nivel nube, donde todos los respositorios se guardan en una plataforma donde muchas personas desde diferentes maquinas pueden ver, editar y trabajar en conjunto. Trabaja con git, pero la diferencia es que los repositorios(galeria)
 no es solo a nivel local del computador si no también que esta en la nube para que cualquier persona pueda verlo.
 
-Github es por excelencia la red social de los desarrolladores, hay que tener un perfil presentable y se puede usar tanto para publicar proyectos como para ver proyectos de diferentes personas, siempre y cuando sean públicos o den el permiso personalmente.
+Github es por excelencia la red social de los desarrolladores, hay que tener un perfil presentable y se puede usar tanto para públicar proyectos como para ver proyectos de diferentes personas, siempre y cuando sean públicos o den el permiso personalmente.
 
-En la parte de explorar(`Explore`) se pueden ver todas las publicaciones publicas hechas a nivel mundial y aparecen los repositorios de proyectos. Es un lugar bastante diferente y útil donde puedes contactar personas, entrar a proyectos open source para contribuir en ellos, entre muchas otras cosas. 
+En la parte de explorar(`Explore`) se pueden ver todas las públicaciones públicas hechas a nivel mundial y aparecen los repositorios de proyectos. Es un lugar bastante diferente y útil donde puedes contactar personas, entrar a proyectos open source para contribuir en ellos, entre muchas otras cosas. 
 
 Si se tiene un proyecto importante y se quiere por ejemplo
 trabajar en equipo, lo podemos subir a un servidor para que varias personas podamos ir
@@ -42,54 +42,54 @@ ES LO PRIMERO QUE LOS VISITANTES VEN, por lo que se usa para explicar de que se 
 
 
 
-**Unir github con git local**
-(hay que leer la documentación) sección de autenticación. DESDE LA TERMINAL NO EL GITBASH
-Autenticación y coneccion SSH a github: Primero lo veremos a grandes rasgos, es mi tarea
-revisar esto con detenimiento a partir la documentación. En general es un metodo de autenticacion
-de llave publica y privada para servidores remotos donde no hay necesidad de estar usando usuarios y
-contraseñas, se hace mediante un archivo de clave privada en el equipo local. primero EN LA TERMINAL comprobaremos
-si ya tenemos unas claves ssh con ls -al ~/.ssh TODO ESTO ESTA EN LA DOCUMENTACIÓN DE GIT, si no
-se tienen llaves ssh entonces se pone ssh-keygen -t ed25519 -C "your_email@example.com" (notese
-que aca se usa el algoritmo de encriptación ed25519 pero tambien puede ser el rsa y el correo debe 
-ser el mismo con el que se tiene la cuenta de github) y de esta
-manera se crea un llave pública y una privada y hay que poner un nombre al archivo donde se guardaran
-estas cosas. y si se quiere mas seguridad se puede poner una frase de contraseña o se puede dejar en blanco
-y asi se me ha crado una clave ssh y en el directorio .ssh apareceran 2 archivos nombre y nombre.pub 
-que son las llaves publicas y privadas.
+## Unir github con git local
+[documentación](https://docs.github.com/es) 
+### Autenticación y coneccion SSH a github:
+En general es un metodo de autenticacion de llave pública y privada para servidores remotos donde no hay necesidad de estar usando usuarios y
+contraseñas, se hace mediante un archivo de clave privada en el equipo local.
 
-Enter file in which to save the key (/c/Users/YOU/.ssh/id_ALGORITHM):[Press enter]  aca es donde se indica el nombre
-de las claves. Dan unos recomendados como lo son id_rsa, id_ed25519 pero en general puede ser el que queramos. aunque
-si solo se da enter notese que se guardara automaticamente en una nueva carpeta llamada .ssh con el nombre id_algorithm
+primero EN LA TERMINAL comprobaremos si ya tenemos unas claves ssh con `ls -al ~/.ssh` (TODO ESTO ESTA EN LA DOCUMENTACIÓN DE GITHUB):
+* Si NO se tienen llaves ssh entonces se pone `ssh-keygen -t ed25519 -C "your_email@example.com"` (notese
+que ac+a se usa el algoritmo de encriptación ed25519 pero tambien puede ser el rsa y el correo debe 
+ser el mismo con el que se tiene la cuenta de github) y de esta manera se crea un llave pública y una privada y hay que poner un nombre al archivo donde se guardaran. Si se quiere mas seguridad se puede poner una frase de contraseña o se puede dejar en blanco y asi se me ha crado una clave ssh; en el directorio `.ssh` apareceran 2 archivos nombre y nombre.pub que son las llaves públicas y privadas.
+
+Enter file in which to save the key (/c/Users/YOU/.ssh/id_ALGORITHM):[Press enter]  acá es donde se indica el nombre
+de las claves. Dan unos recomendados como lo son id_rsa, id_ed25519 pero en general puede ser el que queramos. Aunque
+si solo se da enter notese que se guardara automaticamente en una nueva carpeta llamada `.ssh` con el nombre id_<algorithm>
 
 Y esto es para ingresar una contraseña adicional, en caso que no se quiera simplemente se da enter
 Enter passphrase (empty for no passphrase): [Type a passphrase]
+
 > Enter same passphrase again: [Type passphrase again]
 
-luego para github necesitamos el archivo de llave publica el .pub 
+Luego para github necesitamos el archivo de llave pública el .pub 
 
-AGENTE-SSH(ssh-agent)
+### AGENTE-SSH(ssh-agent)
 Es un programa que se ejecuta en segundo plano y almacena tus claves privadas SSH en la memoria, de manera
 que no tengas que ingresar tu frase de paso cada vez que te conectas a un servidor o interactúas con servicios
 como github usando SSH. Primero se generan las claves SSH (pública y privada) y se añade la clave
 privada al agente con ssh-add para que pueda ser utilizada y asi, cuando me conecte a un servidor o use
 git ssh-agent proporciona automáticamente a clave privada al servidor. 
 
-1. se ejecuta eval "$(ssh-agent -s)" y se iniciara el ssh-agent en segundo plano y retornara un 
-agent pid #### que indica que el proceso esta corriendo.
+1. se ejecuta `eval "$(ssh-agent -s)"` y se iniciara el ssh-agent en segundo plano y retornara un 
+`agent pid ####` que indica que el proceso esta corriendo.
 
-4. hacer ssh-add c:/Users/YOU/.ssh/id_ed25519 agregar la clave privada y de esta
+4. hacer `ssh-add c:/Users/YOU/.ssh/id_ed25519` agregar la clave privada y de esta
 manera se queda lista para que la clave quede guardada. 
 
+Hasta ahora ya tenemos las claves públicas y privadas además de del agente ssh se tiene que hacer
+lo siguiente:
 
-RECOREMOS QUE TODO ESTO ESTA EN LA DOCUMENTACION DE GITHUB GRATIS EN LA WEB 
-
-AHORA LUEGO DE TENER las claves publicas y privadas ademas de del agente ssh se tiene que hacer
-lo siguiente, nos vamos a github y a la parte de settings y luego a SSH and GPG keys 
-que son claves importantes, en caso de que se trabaje siempre desde la misma pagina
-es bueno hacer esto para que se guarden estas claves y no se tenga que tener que configurar
-cada que se entra. le damos para crear una nueva clave SSH y se le puede dar un nombre y en la parte
-de la clave se le pondra la clave publica que creamos hace un momento (es todo el codigo que aparece en un archivo
+* Nos vamos a github $\rightarrow$ settings $\rightarrow$ SSH and GPG keys (son claves importantes, en caso de que se trabaje siempre desde la misma pagina es bueno hacer esto para que se guarden estas claves y no se tenga que tener que configurar
+cada que se entra.) $\rightarrow$ crear una nueva clave SSH (se le puede dar un nombre) $\rightarrow$ en la parte
+de la clave se le pondra la clave pública que creamos hace un momento (es todo el código que aparece en un archivo
 de tipo pubisher pero se puede abrir facilmente con el bloc de notas ) y luego se añade, en caso que se tengan
-mas ordenadores o cosas por el estilo se ueden añadir mas claves. 
-Finalmente hay que verificar que si se haya conectado con la maquina local escribiendo ssh -T git@github.com en el git bash 
-y se confirma con yes para que esa llave se mantenga activa.
+mas ordenadores o cosas por el estilo se ueden añadir mas claves.
+
+Finalmente hay que verificar que si se haya conectado con la maquina local escribiendo `ssh -T git@github.com` en la terminal y se confirma para que esa llave se mantenga activa.
+
+Luego de haber unido el git del pc con github, obviamente no es recomendable subir un proyecto en el primer repositorio que es la carta de presentación de cada desarrollador. Eso es solo para poner una buena introducción de lo que se verá en todo el perfil. 
+
+Ahora al crear un repositorio nuevo se podran ver diferentes opciones desde el github 
+
+## Comando para trabajar de git a github pronto ...

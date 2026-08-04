@@ -1,9 +1,6 @@
 """------------------------------------------------------------------------------------------------------
 
-Ahora luego de haber unido el git del pc con github, obviamente no es recomendable subir un 
-proyecto en el primer repositorio que es la carta de presentación de cada desarrollador. Eso 
-es solo para poner una buena introducción de lo que se vera en todo el perfil y eso. 
-Ahora al crear un repositorio nuevo se podran ver diferentes opcines desde el github 
+
 
 nota: recordemos que  echo "texto" sirve para poner texto en la terminal.
 
