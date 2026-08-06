@@ -92,4 +92,91 @@ Luego de haber unido el git del pc con github, obviamente no es recomendable sub
 
 Ahora al crear un repositorio nuevo se podran ver diferentes opciones desde el github 
 
-## Comando para trabajar de git a github pronto ...
+## Comando para trabajar con git y github
+
+### 1. git remote
+Es un comando que permite gestionar los repositorios remotos asociados con mi repositorio local (el repositorio remoto es una versión de mi proyecto en un servidor)
+;por ello; para poder unir un repositorio local a uno remoto en github creamos por separado cada reposotorio y luego los unimos con el comando:  
+
+🖥️
+```bash  
+    git remote add origin https://github.com/usuario/nombre-repositorio.git #unión por https  
+    git remote add origin git@github.com:usuario/nombre-repositorio.git # unión por ssh
+```
+    
+Donde `origin` es el nombre que se le da a la rama princiapl del repositorio remoto las url ya sea por https o ssh es el identificador con el repositorio remoto en la web, luego de darle enter entonces se une con el repo local.
+
+🖥️
+```bash  
+    git remote -v # muestra todos los repositorios remotos configurados
+    #por tanto, es una forma de verificar si ya se tiene un repo remoto configurado a mi repo local
+```
+
+🖥️
+```bash  
+    git remote remove <nombre-repositorio> # para remover y desvincular un repositorio remoto con uno local
+```
+
+🖥️
+```bash  
+    git remote rename origin <nombre-nuevo> # cambia el nombre del repositorio remoto de origin al nombre indicado
+```
+
+🖥️
+```bash  
+    git remote set-url nombre nueva-url # sirve para actualizar la url del repositorio
+```
+
+🖥️
+```bash  
+    git remote show origin # muestra detalles sobre el remoto llamado origin
+```  
+
+### 2. git push
+Es el comando en git que se usa para subir mis cambios locales (commits) al respositorio remoto como github. Es como actualizar la version online del proyecto con las modificaciones que has he hecho con la maquina local. 
+
+**Primer git push que debe hacerse para establecer el vínculo entre ramas**
+🖥️
+```bash
+    git push -u origin main  
+``` 
+* -u: establece una referencia de seguimiento para la rama local vinculandola con la rama remota de tal manera que no hay que poner todo eso otra vez para subir los commits. 
+* origin: nombre del repositorio remoto por defecto.
+* main: nombre de la rama remota donde quieres enviar tus cambios.
+
+Esa es la manera de relacionar la rama main con la rama principal remota origin. Tal vez pida autenticar la contraseña de github pero nada más. Ahora, se refresa la pagina de github y ya se pueden ver los arhivos que teniamos en local, incluido el gitignore y todo en una rama que se llama main.   
+
+> De ahora en adelante, basta con hacer un `git push` para enviar los cambios de local a remoto.  
+
+Notese que en el repositorio remoto en la esquina superior derecha se pueden ver todos los commits
+
+IMPORTANTE: Cuando nosotros seguimos trabajando en nuestro proyecto de manera local y luego hacemos un commit de este. No se guardara en github automaticamente; es decir, se guardará en el repositorio local que nostoros tenemos pero no se guardará en el remoto; para ello, hay que hacer  nuestro git push. Al hacerlo, nuestro repositorio local estará a la par con el repositorio remoto. 
+
+Haciendo `git log`, aparecerá el head de ORIGIN que es el nombre del repositorio remoto y también donde está el head de MAIN. Recordemos que el head es el indicador de donde nos encontramos en el proyecto. 
+
+3.git fetch: Este comando descarga todos los cambios del repositorio remoto al repositorio local, pero sin aplicar
+esos cambios a la rama actual. Es decir, permite ver en que ha cambiado el remoto antes de decidir si deseas incorporar 
+esos cambios. Es como ver una vista previa sin afectar el trabajo actual. Por ejemplo, si se esta trabajando
+en una rama main pero un compañero ha hecho cambios en el repositorio remoto que aun no tenemos en el local, para 
+ver los cambios en el remoto es
+    git fetch origin 
+
+Esto descargara todos los cambios del repositorio remoto origin 
+pero sin fusionarlos en la rama actual. Para ver los cambios sin aplicarlos aun
+se puede ver la nueva informacion en el remoto y comparar
+
+    git log origin/main
+
+y esto muestra el historial del remoto para ver los commit que se han agregado
+desde la ultima vez que sincronizaste. En caso de que se decida incorporar
+los cambios despues de verlos, se puede hacer con un git merge  o un GIT PULL
+
+    git merge origin/main que fusiona los cambios descargados en la rama main.
+
+finalmente, git fetch descarga los cambios que tiene el repositorio remoto antes de
+aplicarlos a la rama main para ver las actualizaciones antes de fusionarlas al trabajo.
+Es el que usamos luego de hacer el git push -u origin main, o sirve cuando se intenta
+hacer un git push pero hay un problema pues querra decir que se esta intentando subir o actulizar
+desde el local al remoto pero alguien hizo algun cambio primero y hay conflicto por lo que primero
+hay que revisar estos conflictos y tener nuestra rama main local acutalizada a la del remoto 
+y ahi ya no habran conflictos. 
