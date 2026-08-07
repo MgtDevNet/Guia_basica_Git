@@ -154,29 +154,30 @@ IMPORTANTE: Cuando nosotros seguimos trabajando en nuestro proyecto de manera lo
 
 Haciendo `git log`, aparecerá el head de ORIGIN que es el nombre del repositorio remoto y también donde está el head de MAIN. Recordemos que el head es el indicador de donde nos encontramos en el proyecto. 
 
-3.git fetch: Este comando descarga todos los cambios del repositorio remoto al repositorio local, pero sin aplicar
-esos cambios a la rama actual. Es decir, permite ver en que ha cambiado el remoto antes de decidir si deseas incorporar 
-esos cambios. Es como ver una vista previa sin afectar el trabajo actual. Por ejemplo, si se esta trabajando
-en una rama main pero un compañero ha hecho cambios en el repositorio remoto que aun no tenemos en el local, para 
-ver los cambios en el remoto es
-    git fetch origin 
+### 3.git fetch
+Este comando descarga todos los cambios del repositorio remoto al repositorio local, pero sin aplicar esos cambios a la rama actual. Es decir, permite ver en que ha cambiado el repo remoto antes de decidir si deseas incorporar esos cambios. Es como ver una vista previa sin afectar el trabajo actual. Por ejemplo, si se esta trabajando en una rama main pero un compañero ha hecho cambios en el repositorio remoto que aún no tenemos en el local, para ver los cambios en el remoto es
 
-Esto descargara todos los cambios del repositorio remoto origin 
-pero sin fusionarlos en la rama actual. Para ver los cambios sin aplicarlos aun
-se puede ver la nueva informacion en el remoto y comparar
+🖥️
+```bash
+    git fetch origin  
+``` 
+     
+Esto descargara todos los cambios del repositorio remoto origin pero sin fusionarlos en la rama actual.
 
+Para ver los cambios sin aplicarlos aún se puede ver la nueva informacion en el remoto y comparar
+
+🖥️
+```bash
     git log origin/main
+```     
+Esto muestra el historial del remoto para ver los commit que se han agregado desde la última vez que sincronizaste. En caso de que se decida incorporar los cambios despues de verlos, se puede hacer con un git merge o un GIT PULL
 
-y esto muestra el historial del remoto para ver los commit que se han agregado
-desde la ultima vez que sincronizaste. En caso de que se decida incorporar
-los cambios despues de verlos, se puede hacer con un git merge  o un GIT PULL
-
-    git merge origin/main que fusiona los cambios descargados en la rama main.
-
-finalmente, git fetch descarga los cambios que tiene el repositorio remoto antes de
+🖥️
+```bash
+    git merge origin/main # que fusiona los cambios descargados en la rama main.
+```
+Finalmente, git fetch descarga los cambios que tiene el repositorio remoto antes de
 aplicarlos a la rama main para ver las actualizaciones antes de fusionarlas al trabajo.
-Es el que usamos luego de hacer el git push -u origin main, o sirve cuando se intenta
-hacer un git push pero hay un problema pues querra decir que se esta intentando subir o actulizar
-desde el local al remoto pero alguien hizo algun cambio primero y hay conflicto por lo que primero
-hay que revisar estos conflictos y tener nuestra rama main local acutalizada a la del remoto 
-y ahi ya no habran conflictos. 
+
+Es el comando que se usa luego de hacer el `git push -u origin main`, sirve cuando se intenta hacer un git push pero hay un problema pues querrá decir que se esta intentando subir o actulizar desde el local al remoto, pero alguien hizo algun cambio primero y hay conflicto por lo que primero
+hay que revisar estos conflictos y tener nuestra rama main local acutalizada a la del remoto y ahi ya no habran conflictos. 
