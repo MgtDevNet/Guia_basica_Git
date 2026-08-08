@@ -181,3 +181,30 @@ aplicarlos a la rama main para ver las actualizaciones antes de fusionarlas al t
 
 Es el comando que se usa luego de hacer el `git push -u origin main`, sirve cuando se intenta hacer un git push pero hay un problema pues querrá decir que se esta intentando subir o actulizar desde el local al remoto, pero alguien hizo algun cambio primero y hay conflicto por lo que primero
 hay que revisar estos conflictos y tener nuestra rama main local acutalizada a la del remoto y ahi ya no habran conflictos. 
+
+### 4. git pull
+Es una combinación de git fetch y git merge. Es decir, descarga los cambios del remoto y automáticamente los fusiona con la rama actual en un solo paso. 
+Este comando se usa cuando se esté seguro de que se quiere traer y fusionar automáticamente los cambios del repo remoto a la rama local
+
+🖥️
+```bash
+    git pull origin main 
+```
+En caso de que hayan conflictos git avisara y va pedir que se resuelvan.
+
+Luego de que se unan, todos los nuevos archivos y codigos estaran en el repositorio local. Es importante que si llegamos a tener problemas con esto
+revisemos videos o la respectiva documentacion para solucionarlos. 
+
+### 5. git clone <url>
+Es el comando que se usa para copiar un repositorio remoto completo a tu computadora.
+Basicamente descarga todos los archivos, el historial de cambios y las ramas del repositorio, creando una copia completa en el sistema local de cualquier repositorio público. 
+De esta manera al copiar todos los archivos y el historial nos permite ver y editar todo el proyecto en la máquina. También configura la rama principal , lo que permite que conecte y sincronize con el repositorio original. 
+
+🖥️
+```bash
+    git clone  <url> # ya sea https://github.com/usuario/proyecto.git o ssh...
+```   
+    
+crear una copia local exacta de un repositorio existente en un servidor remoto (como GitHub) o en otra ruta 
+
+Nota: Puede que algunas veces exista algun problema al hacer las conecciones con ssh pero es porque muchas veces las redes corporativas restringen el puerto 22 que usa ssh en este caso se puede intentar usar https en lugar de ssh. Notese que en una red privada no hay ningún problema a la hora de clonar un repo. 
