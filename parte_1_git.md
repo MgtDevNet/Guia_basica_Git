@@ -425,6 +425,72 @@ Puedes hacer un ejemplo para ver su funcionamiento:
 
 6. Revisar con git status que ya no aparezca el archivo_ignorar.txt  sino solamente el archivo .gitignore.
 
+#### Estructura de un arhivo .gitignore
+Su estructura es muy sencilla, pero saber qué poner en él es fundamental para evitar subir contraseñas, no llenar tu repositorio de archivos basura y no subir archivos gigantes que bloqueen Git.
+
+1. La Regla de Oro: ¿Qué DEBE e INDEBE ir en Git?
+SÍ va a Git (Código y Recetas): Tus scripts (.py), archivos de configuración (docker-compose.yml, Dockerfile, requirements.txt), documentos explicativos (README.md).
+
+NO va a Git (Basura y Secretos): Contraseñas, claves de bases de datos, datos personales, archivos pesados de datos (.csv, .db), archivos temporales que genera el lenguaje al ejecutar código (__pycache__).
+
+2. Estructura estándar de un .gitignore profesional
+A continuación tienes una plantilla lista para usar en proyectos de Python, Bases de Datos y Docker. Solo debes crear un archivo llamado .gitignore (con el punto al inicio) en la raíz de tu proyecto y pegar esto:
+```
+# ==========================================
+# 1. ARCHIVOS TEMPORALES DE PYTHON
+# ==========================================
+# Archivos de caché que Python genera automáticamente al ejecutar código
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# ==========================================
+# 2. ENTORNOS VIRTUALES LOCALES
+# ==========================================
+# Si creaste un venv en tu máquina local por error o costumbre
+.venv/
+venv/
+ENV/
+env/
+
+# ==========================================
+# 3. SEGURIDAD Y SECRETOS (¡MUY IMPORTANTE!)
+# ==========================================
+# Archivos donde guardas contraseñas y claves de acceso
+.env
+.env.local
+*.pem
+*.key
+
+# ==========================================
+# 4. ARCHIVOS DEL EDITOR DE CÓDIGO (IDE)
+# ==========================================
+# Configuraciones personales de tu editor que no le sirven a otros
+.vscode/
+.idea/
+*.swp
+
+# ==========================================
+# 5. DATOS PESADOS Y BASES DE DATOS LOCALES
+# ==========================================
+# No subas bases de datos SQLite o datos pesados
+*.sqlite3
+*.db
+*.csv
+*.xlsx
+*.parquet
+
+# Si tienes una carpeta llamada 'data/' donde descargas datasets pesados:
+data/
+
+# ==========================================
+# 6. ARCHIVOS DEL SISTEMA OPERATIVO
+# ==========================================
+# Archivos basura que crean Windows y macOS en silencio
+.DS_Store
+Thumbs.db
+```
 #### git rm --cached <archivo>
 Si alguna vez ya habías hecho un git add de ese archivo antes de agregarlo al .gitignore, Git lo seguirá rastreando. Para sacarlo del radar sin borrarlo de tu computadora, ejecuta:
 
@@ -432,6 +498,8 @@ Si alguna vez ya habías hecho un git add de ese archivo antes de agregarlo al .
 ```bash  
     git rm --cached <archivo>
 ```
+
+**Consejo: Crea siempre el archivo .gitignore en el primer paso, justo antes de hacer tu primer git add . o git commit.**
 
 ### 9. git diff:
 Permite ver cambios que se han hecho en ficheros antes de hacer un nuevo commit; es decir, muestra aquellas diferencias y el lugar en que estan. Estas diferencias se pueden ver si y solo si, el archivo editado no se ha montado al área de preparación (lugar que a donde `git add` lleva los archivos), es decir, se mostraran las diferencias entre lo nuevo agregado y lo que tiene guardado el último commit.

@@ -7,38 +7,6 @@ nota: recordemos que  echo "texto" sirve para poner texto en la terminal.
 Comandos para trabajar de git a github, para subir nuestro codigo a github: 
 
 
-4. git pull:Es una combinación de git fetch y git merge. Es decir, descarga
-los cambios del remoto y automáticamente los fusiona con la rama actual en un solo paso. 
-Este se usa cuando se esté seguro de que se quiere traer y fusionar automáticamente los 
-cambios del remoto a la rama local
-
-    git pull origin main: trae los cambios del remoto
-    y los fusiona. En caso de que hayan conflictos git avisara
-    y pedir que se resuelvan
-
-luego de que se unan, todos los nuevos archivos y codigos estaran en mi
-repositorio local. Es importante que si llegamos a tener problemas con esto
-revisemos videos o la respectiva documentacion para solucionarlos. 
-
-5. git clone:Es el comando que se usa para copiar un repositorio remoto completo 
-a tu computadora. Basicamente descarga todos los archivos, el historial de cambios y las ramas
-del repositorio, creando una copia completa en el sistema local. 
-De esta manera al copiar todos los archivos y el historial nos permite ver y editar
-todo el proyecto en la máquina. También configura el remoto llado origin, lo que permite
-que conecte y sincronize con el repositorio original. 
-
-    git clone https://github.com/usuario/proyecto.git
-              ssh...
-
-Crea una carpeta llamada proyecto en el sistema local, con los archivos, 
-commits y ramas del repositorio y entonces se puede trabajar en el proyecto en
-la computadora como si fuera el original.Aunque esto tambien se puede hacer a mano
-obviamente es mejor pues simplemente trabajar con el control de versiones. Es recomendable
-clonarlo por medio del ssh pues al inicio ya lo configuramos. Finalmente se crea una carpeta
-con todo lo de este repositorio. Puede que algunas veces exista algun problema al hacer
-las conecciónes con ssh pero es porque muchas veces las redes corporativas restringen
-el puerto 22 que usa ssh en este caso se puede intentar usar https en lugar de ssh.
-Notese que en una red privada no hay ningún problema a la hora de clonar un repo. 
 
 6. fork: Hacer un fork en git es como sacar una copia completa de un proyecto que está
 en un repositorio de alguien más, pero esta copia queda en tu propia cuenta sin afectar el 
